@@ -12,9 +12,15 @@ var foo =
 (program
   (comment)
   (variable_declaration
-    (identifier)
-    (comment)
-    (identifier)))
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (expression
+        binary_expression: (binary_expression
+          left: (expression
+            postfix_expression: (identifier))
+          (comment)
+          right: (expression
+            postfix_expression: (identifier)))))))
 
 ==========================
 Documentation comments
@@ -39,21 +45,29 @@ func apply() { }
 ---
 
 (program
-    (comment)
-    (variable_declaration
-      name: (identifier)
-      (comment)
-      value: (identifier))
-
-    (comment)
-    (constant_declaration
-      name: (identifier)
-      value: (identifier))
-
-    (comment)
-    (comment)
-    (comment)
-    (function_declaration
-      name: (identifier)
-      (parameter_list))
-)
+  (comment)
+  (variable_declaration
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (expression
+        binary_expression: (binary_expression
+          left: (expression
+            postfix_expression: (identifier))
+          (comment)
+          right: (expression
+            postfix_expression: (identifier))))))
+  (comment)
+  (constant_declaration
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      value: (initializer
+        (expression
+          postfix_expression: (identifier)))))
+  (comment)
+  (comment)
+  (comment)
+  (function_declaration
+    (function_head)
+    name: (function_name
+      (identifier))))
