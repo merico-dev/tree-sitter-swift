@@ -1418,6 +1418,10 @@
         {
           "type": "STRING",
           "value": "tvOS"
+        },
+        {
+          "type": "STRING",
+          "value": "Linux"
         }
       ]
     },

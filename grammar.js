@@ -285,7 +285,7 @@ module.exports = grammar({
                 seq("targetEnvironment", "(", $._environment, ")")
             ),
 
-        _operating_system: $ => choice("macOS", "iOS", "watchOS", "tvOS"),
+        _operating_system: $ => choice("macOS", "iOS", "watchOS", "tvOS", "Linux"),
 
         _architecture: $ => choice("i386", "x86_64", "arm", "arm64"),
 
