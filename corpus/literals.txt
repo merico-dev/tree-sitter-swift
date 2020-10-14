@@ -7,7 +7,8 @@ String Literals
 ---
 
 (program
-  (string))
+  (expression
+    postfix_expression: (string_literal)))
 
 ======
 Integer Literals
@@ -29,18 +30,30 @@ Integer Literals
 ---
 
 (program
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number)))
 
 ======
 Floating-point Literals
@@ -63,18 +76,30 @@ Floating-point Literals
 ---
 
 (program
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number)
-  (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number))
+  (expression
+    postfix_expression: (number)))
 
 ======
 Boolean Literals
@@ -86,8 +111,17 @@ var foo = false
 ---
 
 (program
-  (boolean)
-  (variable_declaration (identifier) (boolean)))
+  (expression
+    postfix_expression: (boolean_literal))
+  (variable_declaration
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (expression
+        binary_expression: (binary_expression
+          left: (expression
+            postfix_expression: (identifier))
+          right: (expression
+            postfix_expression: (boolean_literal)))))))
 
 
 ======
@@ -100,5 +134,12 @@ let foo = nil
 ---
 
 (program
-  (nil)
-  (constant_declaration (identifier) (nil)))
+  (expression
+    postfix_expression: (nil_literal))
+  (constant_declaration
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      value: (initializer
+        (expression
+          postfix_expression: (nil_literal))))))
