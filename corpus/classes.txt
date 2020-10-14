@@ -7,7 +7,9 @@ internal class A {}
 ---
 
 (program
-	(class_declaration (modifier) (identifier)))
+  (class_declaration
+    class_name: (identifier)
+    body: (class_body)))
 
 ======
 Class with an empty deinitializer
@@ -20,8 +22,11 @@ public final class C {
 ---
 
 (program
-	(class_declaration (modifier) (modifier) (identifier)
-		(deinitializer_declaration)))
+  (class_declaration
+    class_name: (identifier)
+    body: (class_body
+      (deinitializer_declaration
+        keyword: (deinit)))))
 
 ======
 Final class
@@ -32,8 +37,9 @@ public final class C { }
 ---
 
 (program
-	(class_declaration (modifier) (modifier) (identifier))
-)
+  (class_declaration
+    class_name: (identifier)
+    body: (class_body)))
 
 ======
 Open class
@@ -44,7 +50,9 @@ open class C { }
 ---
 
 (program
-	(class_declaration (modifier) (identifier)))
+  (class_declaration
+    class_name: (identifier)
+    body: (class_body)))
 
 ======
 Class with a private and fileprivate functions
@@ -60,15 +68,27 @@ public final class C {
 ---
 
 (program
-	(class_declaration (modifier) (modifier) (identifier)
-  (variable_declaration
-    name: (identifier)
-    type: (type (identifier))
-    value: (identifier))
-  (constant_declaration
-    name: (identifier)
-    type: (type (standard_type)))
-  (function_declaration
-    name: (identifier)
-    (parameter_list)))
-)
+  (class_declaration
+    class_name: (identifier)
+    body: (class_body
+      (variable_declaration
+        (variable_declaration_head)
+        pattern_initializer: (pattern_initializer
+          (identifier_pattern
+            (identifier))
+          (type_annotation
+            (any_type))
+          value: (initializer
+            (expression
+              postfix_expression: (identifier)))))
+      (constant_declaration
+        pattern_initializer: (pattern_initializer
+          (identifier_pattern
+            (identifier))
+          (type_annotation
+            (type_identifier
+              identifier: (identifier)))))
+      (function_declaration
+        (function_head)
+        name: (function_name
+          (identifier))))))
