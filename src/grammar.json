@@ -1672,7 +1672,7 @@
               "type": "ALIAS",
               "content": {
                 "type": "SYMBOL",
-                "name": "number"
+                "name": "availability_number"
               },
               "named": true,
               "value": "platform_version"
@@ -1682,6 +1682,36 @@
         {
           "type": "STRING",
           "value": "*"
+        }
+      ]
+    },
+    "availability_number": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "."
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "number"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },

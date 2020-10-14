@@ -6461,6 +6461,21 @@
     }
   },
   {
+    "type": "platform_version",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "postfix_operator_declaration",
     "named": true,
     "fields": {},
@@ -10601,10 +10616,6 @@
   {
     "type": "override",
     "named": false
-  },
-  {
-    "type": "platform_version",
-    "named": true
   },
   {
     "type": "postfix",

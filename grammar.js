@@ -133,8 +133,8 @@ module.exports = grammar({
 
         else_clause: $ =>
             choice(
-                   seq("else", $._code_block),
-                   seq("else", field("if_statement", $.if_statement))
+                seq("else", $._code_block),
+                seq("else", field("if_statement", $.if_statement))
             ),
 
         guard_statement: $ =>
@@ -197,11 +197,11 @@ module.exports = grammar({
                 $._label_name,
                 ":",
                 field("statement",
-                      choice($._loop_statement,
-                             $.if_statement,
-                             $.switch_statement,
-                             $.do_statement
-                      )
+                    choice($._loop_statement,
+                        $.if_statement,
+                        $.switch_statement,
+                        $.do_statement
+                    )
                 )
             ),
 
@@ -322,7 +322,9 @@ module.exports = grammar({
             seq("#available", "(", commaSep1($.availability_argument), ")"),
 
         availability_argument: $ =>
-            choice(seq($._platform_name, alias($.number, $.platform_version)), "*"),
+            choice(seq($._platform_name, alias($.availability_number, $.platform_version)), "*"),
+
+        availability_number: $ => seq($.number, optional(seq(".", $.number))),
 
         _platform_name: $ =>
             choice(
@@ -415,10 +417,10 @@ module.exports = grammar({
             ),
 
         dictionary_literal_item: $ => seq(
-                                          field("key", $.expression),
-                                          ":",
-                                          field("value", $.expression)
-                                       ),
+            field("key", $.expression),
+            ":",
+            field("value", $.expression)
+        ),
 
 
         self: $ => token("self"),
@@ -511,8 +513,8 @@ module.exports = grammar({
 
         tuple_element: $ =>
             choice(
-                   field("expression", $.expression),
-                   seq($.identifier, ":", field("expression", $.expression))
+                field("expression", $.expression),
+                seq($.identifier, ":", field("expression", $.expression))
             ),
 
         wildcard_expression: $ => "_",
@@ -689,10 +691,10 @@ module.exports = grammar({
             ),
 
         _code_block: $ => choice(
-                              seq("{", "}"),
-                              field("statements", seq("{", $._statements, "}")),
-                              field("statements", seq("{", $._statement, "}"))
-                          ),
+            seq("{", "}"),
+            field("statements", seq("{", $._statements, "}")),
+            field("statements", seq("{", $._statement, "}"))
+        ),
 
         import_declaration: $ =>
             seq(
@@ -1537,9 +1539,9 @@ module.exports = grammar({
         },
 
         comment: $ => token(prec(PREC.COMMENT, choice(
-			seq("//", /.*/),
-			seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/")
-		))),
+            seq("//", /.*/),
+            seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/")
+        ))),
     },
 });
 
@@ -1556,17 +1558,17 @@ function commaSep(rule) {
 }
 
 function double_quote_chars() {
-  const dq_simple_escapes = /\\"|\\\\|\\\$|\\e|\\f|\\n|\\r|\\t|\\v/
-  const octal_digit = /[0-7]/
-  const dq_octal_escapes = seq('\\', octal_digit, optional(octal_digit), optional(octal_digit))
-  const hex_digit = /\d|a-f|A-F/
-  const dq_hex_escapes = seq(
-    /\\[xX]/,
-    hex_digit,
-    optional(hex_digit)
-  )
+    const dq_simple_escapes = /\\"|\\\\|\\\$|\\e|\\f|\\n|\\r|\\t|\\v/
+    const octal_digit = /[0-7]/
+    const dq_octal_escapes = seq('\\', octal_digit, optional(octal_digit), optional(octal_digit))
+    const hex_digit = /\d|a-f|A-F/
+    const dq_hex_escapes = seq(
+        /\\[xX]/,
+        hex_digit,
+        optional(hex_digit)
+    )
 
-  const dq_unicode_escapes = seq('\\u{', repeat1(hex_digit), '}')
-  const dq_escapes = choice(dq_simple_escapes, dq_octal_escapes, dq_hex_escapes, dq_unicode_escapes)
-  return repeat(choice(dq_escapes, /[^"\\]|\\[^"\\$efnrtv0-7]/))
+    const dq_unicode_escapes = seq('\\u{', repeat1(hex_digit), '}')
+    const dq_escapes = choice(dq_simple_escapes, dq_octal_escapes, dq_hex_escapes, dq_unicode_escapes)
+    return repeat(choice(dq_escapes, /[^"\\]|\\[^"\\$efnrtv0-7]/))
 }
