@@ -6,6 +6,11 @@ const PREC = {
     OPTIONAL_TYPE: 10,
     METATYPE_TYPE: 10,
     PROTOCOL_COMPOSITION_TYPE: 10,
+
+    ASSIGN: 0,
+    TYPE_CASTING: 1,
+    OPERATOR: 2,
+    INLINE_IF: 3,
 };
 
 module.exports = grammar({
@@ -53,7 +58,9 @@ module.exports = grammar({
         [$.binary_expression],
         [$.parenthesized_expression, $.tuple_element],
         [$.parenthesized_expression, $.tuple_element, $._pattern],
-        [$.optional_binding_condition]
+        [$.optional_binding_condition],
+        [$._type_casting_expression, $._pattern],
+        [$._pattern, $._assignment_expression],
     ],
 
     word: $ => $.identifier,
@@ -359,28 +366,43 @@ module.exports = grammar({
         _try_operator: $ => choice("try", seq("try", "?"), seq("try", "!")),
 
         binary_expression: $ =>
-            seq(
-                field("left", $.expression),
-                choice(
-                    seq(
-                        alias($.operator, $.binary_operator),
-                        field("right", $.expression)
-                    ),
-                    seq(
-                        "=",
-                        optional($._try_operator),
-                        field("right", $.expression)
-                    ),
-                    seq(
-                        "?",
-                        $.expression,
-                        ":",
-                        optional($._try_operator),
-                        $.expression
-                    ),
-                    field("type_cast", $.type_casting_operator)
-                )
+            choice(
+                $._assignment_expression,
+                $._binary_expression,
+                $._inline_if_expression,
+                $._type_casting_expression
             ),
+
+        _assignment_expression: $ =>
+            prec.right(PREC.ASSIGN, seq(
+                field("left", $.expression),
+                "=",
+                optional($._try_operator),
+                field("right", $.expression)
+            )),
+
+        _binary_expression: $ =>
+            prec.left(PREC.OPERATOR, seq(
+                field("left", $.expression),
+                alias($.operator, $.binary_operator),
+                field("right", $.expression)
+            )),
+
+        _inline_if_expression: $ =>
+            prec.right(PREC.INLINE_IF, seq(
+                field("left", $.expression),
+                "?",
+                $.expression,
+                ":",
+                optional($._try_operator),
+                $.expression
+            )),
+
+        _type_casting_expression: $ =>
+            prec.left(PREC.TYPE_CASTING, seq(
+                field("left", $.expression),
+                field("type_cast", $.type_casting_operator)
+            )),
 
         type_casting_operator: $ =>
             choice(

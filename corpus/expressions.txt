@@ -1,0 +1,525 @@
+======
+in_out_expression
+=====
+
+&a
+
+---
+
+(program
+  (expression
+    in_out_expression: (in_out_expression
+      identifier: (identifier))))
+
+
+======
+identifier
+=====
+
+a
+
+---
+
+(program
+    (expression
+      postfix_expression: (identifier)))
+
+
+=====
+function_call_expression
+=====
+
+f()
+f(10)
+f(a)
+f(a(), b(c()))
+f("a", 10, x())
+f([1, 2, 3])
+f(&x)
+
+---
+
+(program
+    (expression
+      postfix_expression: (function_call_expression
+        name: (identifier)
+        arguments: (function_call_argument_clause)))
+    (expression
+      postfix_expression: (function_call_expression
+        name: (identifier)
+        arguments: (function_call_argument_clause
+          (function_call_argument
+            argument: (expression
+              postfix_expression: (number))))))
+    (expression
+      postfix_expression: (function_call_expression
+        name: (identifier)
+        arguments: (function_call_argument_clause
+          (function_call_argument
+            argument: (expression
+              postfix_expression: (identifier))))))
+    (expression
+      postfix_expression: (function_call_expression
+        name: (identifier)
+        arguments: (function_call_argument_clause
+          (function_call_argument
+            argument: (expression
+              postfix_expression: (function_call_expression
+                name: (identifier)
+                arguments: (function_call_argument_clause))))
+          (function_call_argument
+            argument: (expression
+              postfix_expression: (function_call_expression
+                name: (identifier)
+                arguments: (function_call_argument_clause
+                  (function_call_argument
+                    argument: (expression
+                      postfix_expression: (function_call_expression
+                        name: (identifier)
+                        arguments: (function_call_argument_clause)))))))))))
+    (expression
+      postfix_expression: (function_call_expression
+        name: (identifier)
+        arguments: (function_call_argument_clause
+          (function_call_argument
+            argument: (expression
+              postfix_expression: (string_literal)))
+          (function_call_argument
+            argument: (expression
+              postfix_expression: (number)))
+          (function_call_argument
+            argument: (expression
+              postfix_expression: (function_call_expression
+                name: (identifier)
+                arguments: (function_call_argument_clause)))))))
+    (expression
+      postfix_expression: (function_call_expression
+        name: (identifier)
+        arguments: (function_call_argument_clause
+          (function_call_argument
+            argument: (expression
+              postfix_expression: (array_literal
+                elements: (expression
+                  postfix_expression: (number))
+                elements: (expression
+                  postfix_expression: (number))
+                elements: (expression
+                  postfix_expression: (number))))))))
+    (expression
+      postfix_expression: (function_call_expression
+        name: (identifier)
+        arguments: (function_call_argument_clause
+          (function_call_argument
+            argument: (expression
+              in_out_expression: (in_out_expression
+                identifier: (identifier))))))))
+
+
+=====
+explicit_member_expression
+=====
+
+a.1
+a.b
+a.b(10)
+
+---
+
+(program
+    (expression
+      postfix_expression: (explicit_member_expression
+        subject: (identifier)
+        member: (number)))
+    (expression
+      postfix_expression: (explicit_member_expression
+        subject: (identifier)
+        member: (identifier)))
+    (expression
+      postfix_expression: (function_call_expression
+        name: (explicit_member_expression
+          subject: (identifier)
+          member: (identifier))
+        arguments: (function_call_argument_clause
+          (function_call_argument
+            argument: (expression
+              postfix_expression: (number)))))))
+
+
+=====
+initializer_expression
+=====
+
+a.init
+a.init(10)
+
+---
+
+(program
+    (expression
+      postfix_expression: (initializer_expression
+        (identifier)))
+    (expression
+      postfix_expression: (function_call_expression
+        name: (initializer_expression
+          (identifier))
+        arguments: (function_call_argument_clause
+          (function_call_argument
+            argument: (expression
+              postfix_expression: (number)))))))
+
+
+=====
+forced_value_expression
+=====
+
+a!
+
+---
+
+(program
+    (expression
+      postfix_expression: (forced_value_expression
+        expression: (identifier))))
+
+
+=====
+optional_chaining_expression
+=====
+
+a?
+a?.b?
+a()?.b
+
+---
+
+(program
+    (expression
+      postfix_expression: (optional_chaining_expression
+        expression: (identifier)))
+    (expression
+      postfix_expression: (optional_chaining_expression
+        expression: (explicit_member_expression
+          subject: (optional_chaining_expression
+            expression: (identifier))
+          member: (identifier))))
+    (expression
+      postfix_expression: (explicit_member_expression
+        subject: (optional_chaining_expression
+          expression: (function_call_expression
+            name: (identifier)
+            arguments: (function_call_argument_clause)))
+        member: (identifier))))
+
+
+=====
+postfix_self_expression
+=====
+
+a.self
+
+---
+
+(program
+    (expression
+      postfix_expression: (postfix_self_expression
+        (identifier))))
+
+
+=====
+subscript_expression
+=====
+
+a[1]
+a[b]
+a["c"]
+
+---
+
+(program
+    (expression
+      postfix_expression: (subscript_expression
+        subject: (identifier)
+        arguments: (function_call_argument
+          argument: (expression
+            postfix_expression: (number)))))
+    (expression
+      postfix_expression: (subscript_expression
+        subject: (identifier)
+        arguments: (function_call_argument
+          argument: (expression
+            postfix_expression: (identifier)))))
+    (expression
+      postfix_expression: (subscript_expression
+        subject: (identifier)
+        arguments: (function_call_argument
+          argument: (expression
+            postfix_expression: (string_literal))))))
+
+
+=====
+parenthesized_expression
+=====
+
+(a())
+
+---
+
+(program
+    (expression
+      postfix_expression: (parenthesized_expression
+        (expression
+          postfix_expression: (function_call_expression
+            name: (identifier)
+            arguments: (function_call_argument_clause))))))
+
+
+=====
+tuple_expression
+=====
+
+(a, b, c)
+
+---
+
+(program
+    (expression
+      postfix_expression: (tuple_expression
+        elements: (tuple_element
+          expression: (expression
+            postfix_expression: (identifier)))
+        elements: (tuple_element
+          expression: (expression
+            postfix_expression: (identifier)))
+        elements: (tuple_element
+          expression: (expression
+            postfix_expression: (identifier))))))
+
+
+=====
+implicit_member_expression
+=====
+
+.xxx
+
+---
+
+(program
+    (expression
+      postfix_expression: (implicit_member_expression
+        (identifier))))
+
+
+=====
+wildcard_expression
+=====
+
+_
+
+---
+
+(program
+    (expression
+      postfix_expression: (wildcard_expression)))
+
+
+=====
+selector_expression
+=====
+
+#selector(a)
+#selector(getter: a)
+#selector(setter: a)
+
+---
+
+(program
+    (expression
+      postfix_expression: (selector_expression
+        (expression
+          postfix_expression: (identifier))))
+    (expression
+      postfix_expression: (selector_expression
+        (expression
+          postfix_expression: (identifier))))
+    (expression
+      postfix_expression: (selector_expression
+        (expression
+          postfix_expression: (identifier)))))
+
+
+=====
+key_path_string_expression
+=====
+
+#keyPath (a)
+
+---
+
+(program
+    (expression
+      postfix_expression: (key_path_string_expression
+        (expression
+          postfix_expression: (identifier)))))
+
+
+=====
+self_method_expression
+=====
+
+self.a
+
+---
+
+(program
+    (expression
+      postfix_expression: (self_method_expression
+        subject: (self)
+        member: (identifier))))
+
+
+=====
+self_subscript_expression
+=====
+
+self[a]
+
+---
+
+(program
+    (expression
+      postfix_expression: (self_subscript_expression
+        subject: (self)
+        arguments: (function_call_argument
+          argument: (expression
+            postfix_expression: (identifier))))))
+
+
+=====
+self_initializer_expression
+=====
+
+self.init
+
+---
+
+(program
+    (expression
+      postfix_expression: (self_initializer_expression
+        subject: (self))))
+
+
+=====
+superclass_method_expression
+=====
+
+super.x
+
+---
+
+(program
+    (expression
+      postfix_expression: (superclass_method_expression
+        subject: (super)
+        member: (identifier))))
+
+
+=====
+superclass_subscript_expression
+=====
+
+super[0]
+
+---
+
+(program
+    (expression
+      postfix_expression: (superclass_subscript_expression
+        subject: (super)
+        arguments: (function_call_argument
+          argument: (expression
+            postfix_expression: (number))))))
+
+
+=====
+superclass_initializer_expression
+=====
+
+super.init
+
+---
+
+(program
+    (expression
+      postfix_expression: (superclass_initializer_expression
+        subject: (super))))
+
+
+=====
+closure_expression
+=====
+
+{
+    a in 
+
+    x()
+    y()
+}
+
+---
+
+(program
+    (expression
+      postfix_expression: (closure_expression
+        signature: (closure_signature
+          (closure_parameter_clause
+            (identifier)))
+        (expression
+          postfix_expression: (function_call_expression
+            name: (identifier)
+            arguments: (function_call_argument_clause)))
+        (expression
+          postfix_expression: (function_call_expression
+            name: (identifier)
+            arguments: (function_call_argument_clause))))))
+
+
+=====
+binary_expression
+=====
+
+a + b + c
+a = a + b() + c
+
+---
+
+(program
+    (expression
+      binary_expression: (binary_expression
+        left: (expression
+          binary_expression: (binary_expression
+            left: (expression
+              postfix_expression: (identifier))
+            (binary_operator)
+            right: (expression
+              postfix_expression: (identifier))))
+        (binary_operator)
+        right: (expression
+          postfix_expression: (identifier))))
+    (expression
+      binary_expression: (binary_expression
+        left: (expression
+          postfix_expression: (identifier))
+        right: (expression
+          binary_expression: (binary_expression
+            left: (expression
+              binary_expression: (binary_expression
+                left: (expression
+                  postfix_expression: (identifier))
+                (binary_operator)
+                right: (expression
+                  postfix_expression: (function_call_expression
+                    name: (identifier)
+                    arguments: (function_call_argument_clause)))))
+            (binary_operator)
+            right: (expression
+              postfix_expression: (identifier)))))))
