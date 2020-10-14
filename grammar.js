@@ -53,6 +53,7 @@ module.exports = grammar({
         [$.binary_expression],
         [$.parenthesized_expression, $.tuple_element],
         [$.parenthesized_expression, $.tuple_element, $._pattern],
+        [$.optional_binding_condition]
     ],
 
     word: $ => $.identifier,
@@ -118,8 +119,7 @@ module.exports = grammar({
         optional_binding_condition: $ =>
             seq(
                 choice("let", "var"),
-                $._pattern,
-                $.initializer
+                commaSep1(seq($._pattern, $.initializer))
             ),
 
         repeat_while_statement: $ =>

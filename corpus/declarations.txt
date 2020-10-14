@@ -457,9 +457,6 @@ internal enum A {
 private enum A {
 	case A(Int)
 }
-enum A {
-	case A = ""
-}
 
 ---
 
