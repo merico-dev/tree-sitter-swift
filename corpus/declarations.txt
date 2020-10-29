@@ -10,10 +10,18 @@ import foo.bar
 ---
 
 (program
-	(import_declaration (identifier))
-	(import_declaration (identifier) (identifier))
-	(import_declaration (identifier) (identifier) (identifier))
-	(import_declaration (identifier) (identifier)))
+  (import_declaration
+    identifier: (identifier))
+  (import_declaration
+    identifier: (identifier)
+    identifier: (identifier))
+  (import_declaration
+    identifier: (identifier)
+    identifier: (identifier)
+    identifier: (identifier))
+  (import_declaration
+    identifier: (identifier)
+    identifier: (identifier)))
 
 ======
 constant
@@ -28,25 +36,53 @@ public static let foo = bar
 ---
 
 (program
-  (constant_declaration (modifier)
-    name: (identifier))
-  (constant_declaration (modifier)
-    name: (identifier)
-    value: (identifier))
   (constant_declaration
-    name: (identifier)
-    name: (identifier)
-    value: (identifier))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))))
   (constant_declaration
-    name: (identifier)
-    name: (identifier)
-    value: (identifier)
-    name: (identifier)
-    type: (type (standard_type))
-    value: (identifier))
-  (constant_declaration (modifier) (modifier)
-    name: (identifier)
-    value: (identifier)))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      value: (initializer
+        (expression
+          postfix_expression: (identifier)))))
+  (constant_declaration
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier)))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      value: (initializer
+        (expression
+          postfix_expression: (identifier)))))
+  (constant_declaration
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier)))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      value: (initializer
+        (expression
+          postfix_expression: (identifier))))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (type_identifier
+          identifier: (identifier)))
+      value: (initializer
+        (expression
+          postfix_expression: (identifier)))))
+  (constant_declaration
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      value: (initializer
+        (expression
+          postfix_expression: (identifier))))))
 
 ======
 variable
@@ -65,37 +101,95 @@ public static var foo = bar
 ---
 
 (program
-  (variable_declaration (modifier)
-    name: (identifier))
   (variable_declaration
-    name: (identifier)
-    value: (identifier))
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))))
   (variable_declaration
-    name: (identifier)
-    type: (type (standard_type)))
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (expression
+        binary_expression: (binary_expression
+          left: (expression
+            postfix_expression: (identifier))
+          right: (expression
+            postfix_expression: (identifier))))))
   (variable_declaration
-    name: (identifier)
-    type: (type (standard_type)))
+    (variable_declaration_head)
+    (identifier)
+    (type_annotation
+      (type_identifier
+        identifier: (identifier)))
+    (getter_setter_keyword_block
+      (getter_keyword_clause)))
   (variable_declaration
-    name: (identifier)
-    type: (type (standard_type)))
+    (variable_declaration_head)
+    (identifier)
+    (type_annotation
+      (type_identifier
+        identifier: (identifier)))
+    (getter_setter_keyword_block
+      (getter_keyword_clause)
+      (setter_keyword_clause)))
   (variable_declaration
-    name: (identifier)
-    name: (identifier)
-    value: (identifier))
-  (variable_declaration (modifier)
-    name: (identifier)
-    name: (identifier)
-    value: (identifier)
-    name: (identifier)
-    type: (type (standard_type))
-    value: (identifier))
-  (variable_declaration (modifier) (modifier)
-    name: (identifier)
-    value: (identifier))
-  (variable_declaration (modifier) (modifier)
-    name: (identifier)
-    value: (identifier)))
+    (variable_declaration_head)
+    (identifier)
+    (type_annotation
+      (type_identifier
+        identifier: (identifier)))
+    (getter_setter_keyword_block
+      (setter_keyword_clause)
+      (getter_keyword_clause)))
+  (variable_declaration
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier)))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      value: (initializer
+        (expression
+          postfix_expression: (identifier)))))
+  (variable_declaration
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier)))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      value: (initializer
+        (expression
+          postfix_expression: (identifier))))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (type_identifier
+          identifier: (identifier)))
+      value: (initializer
+        (expression
+          postfix_expression: (identifier)))))
+  (variable_declaration
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (expression
+        binary_expression: (binary_expression
+          left: (expression
+            postfix_expression: (identifier))
+          right: (expression
+            postfix_expression: (identifier))))))
+  (variable_declaration
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (expression
+        binary_expression: (binary_expression
+          left: (expression
+            postfix_expression: (identifier))
+          right: (expression
+            postfix_expression: (identifier)))))))
 
 ======
 typealias
@@ -107,8 +201,16 @@ public typealias Bar = String
 ---
 
 (program
-	(typealias_declaration (identifier) (type (standard_type)))
-  (typealias_declaration (modifier) (identifier) (type (standard_type))))
+  (typealias_declaration
+    (identifier)
+    (typealias_assignment
+      (type_identifier
+        identifier: (identifier))))
+  (typealias_declaration
+    (identifier)
+    (typealias_assignment
+      (type_identifier
+        identifier: (identifier)))))
 
 ======
 functions
@@ -126,41 +228,86 @@ func foo(x: Int, y: Int) {}
 ---
 
 (program
-  (function_declaration (modifier)
-    name: (identifier)
-    (parameter_list))
   (function_declaration
-    name: (operator)
-    (parameter_list
-      (parameter_declaration (identifier) (type (standard_type)))
-      (parameter_declaration (identifier) (type (standard_type))))
-    return: (type (standard_type)))
+    (function_head)
+    name: (function_name
+      (identifier)))
   (function_declaration
-    name: (identifier)
-    (parameter_list)
-    return: (type (standard_type)))
+    (function_head)
+    name: (function_name
+      (operator))
+    parameters: (parameter
+      identifier: (identifier)
+      (type_annotation
+        (type_identifier
+          identifier: (identifier))))
+    parameters: (parameter
+      identifier: (identifier)
+      (type_annotation
+        (type_identifier
+          identifier: (identifier))))
+    (function_result
+      (type_identifier
+        identifier: (identifier))))
   (function_declaration
-    name: (identifier)
-    (parameter_list
-      (parameter_declaration (type (standard_type)))))
+    (function_head)
+    name: (function_name
+      (identifier))
+    (function_result
+      (type_identifier
+        identifier: (identifier))))
   (function_declaration
-    name: (identifier)
-    (parameter_list
-      (parameter_declaration (identifier) (type (standard_type)))))
+    (function_head)
+    name: (function_name
+      (identifier))
+    parameters: (parameter
+      identifier: (identifier)
+      (type_annotation
+        (type_identifier
+          identifier: (identifier)))))
   (function_declaration
-    name: (identifier)
-    (parameter_list
-      (parameter_declaration (identifier) (type (standard_type)))))
+    (function_head)
+    name: (function_name
+      (identifier))
+    parameters: (parameter
+      identifier: (identifier)
+      (type_annotation
+        (type_identifier
+          identifier: (identifier)))))
   (function_declaration
-    name: (identifier)
-    (parameter_list
-      (parameter_declaration (identifier) (identifier) (type (standard_type)))))
+    (function_head)
+    name: (function_name
+      (identifier))
+    parameters: (parameter
+      (external_parameter_name)
+      identifier: (identifier)
+      (type_annotation
+        (type_identifier
+          identifier: (identifier)))))
   (function_declaration
-    name: (identifier)
-    (parameter_list
-      (parameter_declaration (identifier) (type (standard_type)))
-      (parameter_declaration (identifier) (type (standard_type)))))
-)
+    (function_head)
+    name: (function_name
+      (identifier))
+    parameters: (parameter
+      (external_parameter_name)
+      identifier: (identifier)
+      (type_annotation
+        (type_identifier
+          identifier: (identifier)))))
+  (function_declaration
+    (function_head)
+    name: (function_name
+      (identifier))
+    parameters: (parameter
+      identifier: (identifier)
+      (type_annotation
+        (type_identifier
+          identifier: (identifier))))
+    parameters: (parameter
+      identifier: (identifier)
+      (type_annotation
+        (type_identifier
+          identifier: (identifier))))))
 
 ======
 functions - throwing
@@ -171,11 +318,13 @@ public func foo() throws -> Int {}
 ---
 
 (program
-  (function_declaration (modifier)
-    name: (identifier)
-    (parameter_list)
-    return: (type (standard_type)))
-)
+  (function_declaration
+    (function_head)
+    name: (function_name
+      (identifier))
+    (function_result
+      (type_identifier
+        identifier: (identifier)))))
 
 ======
 functions - optionals
@@ -188,22 +337,46 @@ public func foo(p1: String!) -> Int! {}
 ---
 
 (program
-  (function_declaration (modifier)
-    name: (identifier)
-    (parameter_list)
-    return: (type (standard_type)))
-  (function_declaration (modifier)
-    name: (identifier)
-    (parameter_list
-      (parameter_declaration (identifier) (type (standard_type)))
-      (parameter_declaration (identifier) (type (standard_type))))
-    return: (type (standard_type)))
-  (function_declaration (modifier)
-    name: (identifier)
-    (parameter_list
-      (parameter_declaration (identifier) (type (standard_type))))
-    return: (type (standard_type)))
-)
+  (function_declaration
+    (function_head)
+    name: (function_name
+      (identifier))
+    (function_result
+      (optional_type
+        (type_identifier
+          identifier: (identifier)))))
+  (function_declaration
+    (function_head)
+    name: (function_name
+      (identifier))
+    parameters: (parameter
+      identifier: (identifier)
+      (type_annotation
+        (optional_type
+          (type_identifier
+            identifier: (identifier)))))
+    parameters: (parameter
+      identifier: (identifier)
+      (type_annotation
+        (type_identifier
+          identifier: (identifier))))
+    (function_result
+      (type_identifier
+        identifier: (identifier))))
+  (function_declaration
+    (function_head)
+    name: (function_name
+      (identifier))
+    parameters: (parameter
+      identifier: (identifier)
+      (type_annotation
+        (implicitly_unwrapped_optional_type
+          (type_identifier
+            identifier: (identifier)))))
+    (function_result
+      (implicitly_unwrapped_optional_type
+        (type_identifier
+          identifier: (identifier))))))
 
 ======
 functions - generic functions
@@ -216,27 +389,47 @@ public func foo<Foo, Bar>(p1: Foo) -> Bar {}
 ---
 
 (program
-  (function_declaration (modifier)
-    name: (identifier)
-    (generic_clause
-      name: (identifier))
-    (parameter_list)
-    return: (type (identifier)))
-  (function_declaration (modifier)
-    name: (identifier)
-    (generic_clause
-      name: (identifier)
-      type: (type_identifier))
-    (parameter_list)
-    return: (type (identifier)))
-  (function_declaration (modifier)
-    name: (identifier)
-    (generic_clause
-      name: (identifier)
-      name: (identifier))
-    (parameter_list
-      (parameter_declaration (identifier) (type (identifier))))
-    return: (type (identifier))))
+  (function_declaration
+    (function_head)
+    name: (function_name
+      (identifier))
+    (generic_parameter_clause
+      (generic_parameter
+        (identifier)))
+    (function_result
+      (optional_type
+        (type_identifier
+          identifier: (identifier)))))
+  (function_declaration
+    (function_head)
+    name: (function_name
+      (identifier))
+    (generic_parameter_clause
+      (generic_parameter
+        (identifier)
+        (type_identifier
+          identifier: (identifier))))
+    (function_result
+      (optional_type
+        (type_identifier
+          identifier: (identifier)))))
+  (function_declaration
+    (function_head)
+    name: (function_name
+      (identifier))
+    (generic_parameter_clause
+      (generic_parameter
+        (identifier))
+      (generic_parameter
+        (identifier)))
+    parameters: (parameter
+      identifier: (identifier)
+      (type_annotation
+        (type_identifier
+          identifier: (identifier))))
+    (function_result
+      (type_identifier
+        identifier: (identifier)))))
 
 
 ======
@@ -248,10 +441,10 @@ public static func foo() {}
 ---
 
 (program
-  (function_declaration (modifier) (modifier)
-    name: (identifier)
-    (parameter_list))
-)
+  (function_declaration
+    (function_head)
+    name: (function_name
+      (identifier))))
 
 ======
 enum
@@ -264,17 +457,31 @@ internal enum A {
 private enum A {
 	case A(Int)
 }
-enum A {
-	case A = ""
-}
 
 ---
 
 (program
-	(enum_declaration (modifier) (identifier))
-	(enum_declaration (modifier) (identifier) (case_declaration (identifier)))
-	(enum_declaration (modifier) (identifier) (case_declaration (identifier) (tuple_type (standard_type))))
-	(enum_declaration (identifier) (case_declaration (identifier) (static_string_literal))))
+  (enum_declaration
+    (union_style_enum
+      (enum_name)))
+  (enum_declaration
+    (union_style_enum
+      (enum_name)
+      (union_style_enum_member
+        (union_style_enum_case_clause
+          (union_style_enum_case
+            (enum_case_name))))))
+  (enum_declaration
+    (union_style_enum
+      (enum_name)
+      (union_style_enum_member
+        (union_style_enum_case_clause
+          (union_style_enum_case
+            (enum_case_name)
+            (tuple_type
+              (tuple_type_element
+                (type_identifier
+                  identifier: (identifier))))))))))
 
 ======
 initializer
@@ -287,8 +494,11 @@ struct S {
 ---
 
 (program
-	(struct_declaration (identifier)
-		(initializer_declaration)))
+  (struct_declaration
+    struct_name: (identifier)
+    body: (struct_body
+      (initializer_declaration
+        keyword: (init)))))
 
 ======
 extension
@@ -301,10 +511,14 @@ private extension A {
 ---
 
 (program
-	(extension_declaration (modifier) (identifier)
-		(function_declaration
-      name: (identifier)
-      (parameter_list))))
+  (extension_declaration
+    name: (type_identifier
+      identifier: (identifier))
+    body: (extension_body
+      (function_declaration
+        (function_head)
+        name: (function_name
+          (identifier))))))
 
 ======
 subscript
@@ -317,58 +531,53 @@ struct A {
 ---
 
 (program
-	(struct_declaration (identifier)
-		(subscript_declaration (type (identifier)) (type (identifier)))))
+  (struct_declaration
+    struct_name: (identifier)
+    body: (struct_body
+      (subscript_declaration
+        (subscript_head
+          parameters: (parameter
+            identifier: (identifier)
+            (type_annotation
+              (type_identifier
+                identifier: (identifier)))))
+        (subscript_result
+          (type_identifier
+            identifier: (identifier)))))))
 
 ======
 operator
 ======
 
-prefix operator < {}
-postfix operator > {}
-infix operator <> {}
-infix operator <> {
-	precedence 0
+precedencegroup AssignmentTrue {
+    assignment: true
 }
-infix operator <> {
-	precedence 10
+
+precedencegroup AssignmentFalse {
+    assignment: false
 }
-infix operator <> {
-	precedence 99
-}
-infix operator <> {
-	precedence 199
-}
-infix operator <> {
-	precedence 249
-}
-infix operator <> {
-	precedence 255
-}
-infix operator <> {
-	associativity left
-}
-infix operator <> {
-	precedence 0
-	associativity right
-}
-infix operator <> {
-	associativity none
-	precedence 9
-}
+
+infix operator ++=: AssignmentTrue
+infix operator ++: AssignmentFalse
 
 ---
 
 (program
-	(operator_declaration (operator))
-	(operator_declaration (operator))
-	(operator_declaration (operator))
-	(operator_declaration (operator) (precedence_clause))
-	(operator_declaration (operator) (precedence_clause))
-	(operator_declaration (operator) (precedence_clause))
-	(operator_declaration (operator) (precedence_clause))
-	(operator_declaration (operator) (precedence_clause))
-	(operator_declaration (operator) (precedence_clause))
-	(operator_declaration (operator) (associativity_clause))
-	(operator_declaration (operator) (precedence_clause) (associativity_clause))
-	(operator_declaration (operator) (associativity_clause) (precedence_clause)))
+  (precedence_group_declaration
+    (precedence_group_name)
+    (precedence_group_attribute
+      (precedence_group_assignment
+        (boolean_literal))))
+  (precedence_group_declaration
+    (precedence_group_name)
+    (precedence_group_attribute
+      (precedence_group_assignment
+        (boolean_literal))))
+  (infix_operator_declaration
+    (operator)
+    (infix_operator_group
+      (precedence_group_name)))
+  (infix_operator_declaration
+    (operator)
+    (infix_operator_group
+      (precedence_group_name))))

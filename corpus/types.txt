@@ -10,14 +10,33 @@ let biz: [FooType]
 
 (program
   (constant_declaration
-    name: (identifier)
-    type: (array_type (standard_type)))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (array_type
+          (type_identifier
+            identifier: (identifier))))))
   (variable_declaration
-    name: (identifier)
-    type: (array_type (standard_type)))
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (type_identifier
+          identifier: (identifier)
+          (generic_argument_clause
+            (generic_argument
+              (type_identifier
+                identifier: (identifier))))))))
   (constant_declaration
-    name: (identifier)
-    type: (array_type (type_identifier))))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (array_type
+          (type_identifier
+            identifier: (identifier)))))))
 
 ======
 Array type with initialization
@@ -35,16 +54,61 @@ var foo: [AnyHashable] = [ ]
 
 (program
   (constant_declaration
-    name: (identifier)
-    type: (array_type (standard_type))
-    value: (array (number) (number) (number) (number) (number) (number)))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (array_type
+          (type_identifier
+            identifier: (identifier))))
+      value: (initializer
+        (expression
+          postfix_expression: (array_literal
+            elements: (expression
+              postfix_expression: (number))
+            elements: (expression
+              postfix_expression: (number))
+            elements: (expression
+              postfix_expression: (number))
+            elements: (expression
+              postfix_expression: (number))
+            elements: (expression
+              postfix_expression: (number))
+            elements: (expression
+              postfix_expression: (number)))))))
   (variable_declaration
-    name: (identifier)
-    value: (array (number) (identifier) (number) (string) (number) (string)))
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (expression
+        binary_expression: (binary_expression
+          left: (expression
+            postfix_expression: (identifier))
+          right: (expression
+            postfix_expression: (array_literal
+              elements: (expression
+                postfix_expression: (number))
+              elements: (expression
+                postfix_expression: (identifier))
+              elements: (expression
+                postfix_expression: (number))
+              elements: (expression
+                postfix_expression: (string_literal))
+              elements: (expression
+                postfix_expression: (number))
+              elements: (expression
+                postfix_expression: (string_literal))))))))
   (variable_declaration
-    name: (identifier)
-    type: (array_type (type_identifier))
-    value: (array)))
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (array_type
+          (type_identifier
+            identifier: (identifier))))
+      value: (initializer
+        (expression
+          postfix_expression: (array_literal))))))
 
 ======
 Dictionary type
@@ -58,14 +122,39 @@ let foo: [AnyHashable: Any]
 
 (program
   (constant_declaration
-    name: (identifier)
-    type: (dictionary_type (standard_type) (standard_type)))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (type_identifier
+          identifier: (identifier)
+          (generic_argument_clause
+            (generic_argument
+              (type_identifier
+                identifier: (identifier)))
+            (generic_argument
+              (type_identifier
+                identifier: (identifier))))))))
   (variable_declaration
-    name: (identifier)
-    type: (dictionary_type (standard_type) (type_identifier)))
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (dictionary_type
+          (type_identifier
+            identifier: (identifier))
+          (type_identifier
+            identifier: (identifier))))))
   (constant_declaration
-    name: (identifier)
-    type: (dictionary_type (type_identifier) (type_identifier))))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (dictionary_type
+          (type_identifier
+            identifier: (identifier))
+          (any_type))))))
 
 ======
 Dictionary type with initialization
@@ -83,16 +172,63 @@ var foo: [AnyHashable: Any] = [ : ]
 
 (program
   (variable_declaration
-    name: (identifier)
-    type: (dictionary_type (standard_type) (standard_type))
-    value: (dictionary (string) (string)))
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (type_identifier
+          identifier: (identifier)
+          (generic_argument_clause
+            (generic_argument
+              (type_identifier
+                identifier: (identifier)))
+            (generic_argument
+              (type_identifier
+                identifier: (identifier))))))
+      value: (initializer
+        (expression
+          postfix_expression: (dictionary_literal
+            elements: (dictionary_literal_item
+              key: (expression
+                postfix_expression: (string_literal))
+              value: (expression
+                postfix_expression: (string_literal))))))))
   (constant_declaration
-    name: (identifier)
-    value: (dictionary (number) (string) (number) (string) (number) (string)))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      value: (initializer
+        (expression
+          postfix_expression: (dictionary_literal
+            elements: (dictionary_literal_item
+              key: (expression
+                postfix_expression: (number))
+              value: (expression
+                postfix_expression: (string_literal)))
+            elements: (dictionary_literal_item
+              key: (expression
+                postfix_expression: (number))
+              value: (expression
+                postfix_expression: (string_literal)))
+            elements: (dictionary_literal_item
+              key: (expression
+                postfix_expression: (number))
+              value: (expression
+                postfix_expression: (string_literal))))))))
   (variable_declaration
-    name: (identifier)
-    type: (dictionary_type (type_identifier) (type_identifier))
-    value: (dictionary)))
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (dictionary_type
+          (type_identifier
+            identifier: (identifier))
+          (any_type)))
+      value: (initializer
+        (expression
+          postfix_expression: (dictionary_literal))))))
 
 ======
 Tuple declaration
@@ -107,19 +243,63 @@ func foo() -> (String, String) {}
 
 (program
   (variable_declaration
-    name: (identifier)
-    type: (type (tuple (standard_type) (standard_type))))
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (tuple_type
+          (tuple_type_element
+            (type_identifier
+              identifier: (identifier)))
+          (tuple_type_element
+            (type_identifier
+              identifier: (identifier)))))))
   (constant_declaration
-    name: (identifier)
-    type: (type (tuple (identifier) (type (standard_type)) (identifier) (type (standard_type)))))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (tuple_type
+          (tuple_type_element
+            (identifier)
+            (type_annotation
+              (type_identifier
+                identifier: (identifier))))
+          (tuple_type_element
+            (identifier)
+            (type_annotation
+              (type_identifier
+                identifier: (identifier))))))))
   (function_declaration
-    name: (identifier)
-    (parameter_list)
-    return: (type (tuple (identifier) (type (standard_type)) (identifier) (type (standard_type)))))
+    (function_head)
+    name: (function_name
+      (identifier))
+    (function_result
+      (optional_type
+        (tuple_type
+          (tuple_type_element
+            (identifier)
+            (type_annotation
+              (type_identifier
+                identifier: (identifier))))
+          (tuple_type_element
+            (identifier)
+            (type_annotation
+              (type_identifier
+                identifier: (identifier))))))))
   (function_declaration
-    name: (identifier)
-    (parameter_list)
-    return: (type (tuple (standard_type) (standard_type)))))
+    (function_head)
+    name: (function_name
+      (identifier))
+    (function_result
+      (tuple_type
+        (tuple_type_element
+          (type_identifier
+            identifier: (identifier)))
+        (tuple_type_element
+          (type_identifier
+            identifier: (identifier)))))))
 
 ======
 Empty tuple declaration
@@ -132,12 +312,22 @@ func foo() -> ((), Int) {}
 
 (program
   (constant_declaration
-    name: (identifier)
-    type: (type (tuple)))
-    (function_declaration
-      name: (identifier)
-      (parameter_list)
-      return: (type (tuple (tuple_type) (standard_type)))))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      (type_annotation
+        (tuple_type))))
+  (function_declaration
+    (function_head)
+    name: (function_name
+      (identifier))
+    (function_result
+      (tuple_type
+        (tuple_type_element
+          (tuple_type))
+        (tuple_type_element
+          (type_identifier
+            identifier: (identifier)))))))
 
 ======
 Tuple usage
@@ -152,10 +342,52 @@ return (first: "Foo", last: "Bar")
 
 (program
   (variable_declaration
-    name: (identifier)
-    value: (tuple (number) (number)))
+    (variable_declaration_head)
+    pattern_initializer: (pattern_initializer
+      (expression
+        binary_expression: (binary_expression
+          left: (expression
+            postfix_expression: (identifier))
+          right: (expression
+            postfix_expression: (tuple_expression
+              elements: (tuple_element
+                expression: (expression
+                  postfix_expression: (number)))
+              elements: (tuple_element
+                expression: (expression
+                  postfix_expression: (number)))))))))
   (constant_declaration
-    name: (identifier)
-    value: (tuple (identifier) (number) (identifier) (number)))
-  (return_statement (tuple (string) (string)))
-  (return_statement (tuple (identifier) (string) (identifier) (string))))
+    pattern_initializer: (pattern_initializer
+      (identifier_pattern
+        (identifier))
+      value: (initializer
+        (expression
+          postfix_expression: (tuple_expression
+            elements: (tuple_element
+              (identifier)
+              expression: (expression
+                postfix_expression: (number)))
+            elements: (tuple_element
+              (identifier)
+              expression: (expression
+                postfix_expression: (number))))))))
+  (return_statement
+    (expression
+      postfix_expression: (tuple_expression
+        elements: (tuple_element
+          expression: (expression
+            postfix_expression: (string_literal)))
+        elements: (tuple_element
+          expression: (expression
+            postfix_expression: (string_literal))))))
+  (return_statement
+    (expression
+      postfix_expression: (tuple_expression
+        elements: (tuple_element
+          (identifier)
+          expression: (expression
+            postfix_expression: (string_literal)))
+        elements: (tuple_element
+          (identifier)
+          expression: (expression
+            postfix_expression: (string_literal)))))))

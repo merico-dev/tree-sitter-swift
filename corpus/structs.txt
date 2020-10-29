@@ -7,7 +7,9 @@ struct A {}
 ---
 
 (program
-	(struct_declaration (identifier)))
+  (struct_declaration
+    struct_name: (identifier)
+    body: (struct_body)))
 
 ======
 Public struct
@@ -18,4 +20,6 @@ public struct A {}
 ---
 
 (program
-	(struct_declaration (modifier) (identifier)))
+  (struct_declaration
+    struct_name: (identifier)
+    body: (struct_body)))

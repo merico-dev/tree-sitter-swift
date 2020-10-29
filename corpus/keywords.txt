@@ -8,8 +8,10 @@ diagnostic statements - #error
 ---
 
 (program
-  (diagnostic_statement (static_string_literal))
-  (diagnostic_statement (static_string_literal)))
+  (diagnostic_statement
+    (string_literal))
+  (diagnostic_statement
+    (string_literal)))
 
 ======
 availability condition
@@ -23,22 +25,34 @@ if #available(*) {}
 ---
 
 (program
-  (if_statement (availability_condition))
-  (if_statement (availability_condition))
-  (if_statement (availability_condition))
-  (if_statement (availability_condition)))
-
-======
-line control statement
-======
-
-#line
-#line 1 ""
-#line 100 "a file.swift"
-
----
-
-(program
-	(line_control_statement)
-	(line_control_statement (static_string_literal))
-	(line_control_statement (static_string_literal)))
+  (if_statement
+    availability_condition: (availability_condition
+      (availability_argument
+        (platform_version
+          (number)))
+      (availability_argument)))
+  (if_statement
+    availability_condition: (availability_condition
+      (availability_argument
+        (platform_version
+          (number)))
+      (availability_argument
+        (platform_version
+          (number)
+          (number)))))
+  (if_statement
+    availability_condition: (availability_condition
+      (availability_argument
+        (platform_version
+          (number)))
+      (availability_argument
+        (platform_version
+          (number)))
+      (availability_argument
+        (platform_version
+          (number)
+          (number)))
+      (availability_argument)))
+  (if_statement
+    availability_condition: (availability_condition
+      (availability_argument))))

@@ -7,7 +7,9 @@ protocol A {}
 ---
 
 (program
-	(protocol_declaration (identifier)))
+  (protocol_declaration
+    protocol_name: (identifier)
+    body: (protocol_body)))
 
 ======
 Public protocol declaration
@@ -25,13 +27,38 @@ public protocol A {
 ---
 
 (program
-	(protocol_declaration (modifier) (identifier)
-		(protocol_variable_declaration (identifier) (type (standard_type)))
-		(protocol_method_declaration (identifier) (parameter_list))
-		(protocol_initializer_declaration)
-		(protocol_initializer_declaration)
-		(protocol_initializer_declaration)
-		(protocol_subscript_declaration (type (tuple)) (type (standard_type)))))
+  (protocol_declaration
+    protocol_name: (identifier)
+    body: (protocol_body
+      (protocol_property_declaration
+        (variable_declaration_head)
+        identifier: (identifier)
+        (type_annotation
+          (type_identifier
+            identifier: (identifier)))
+        (getter_setter_keyword_block
+          (getter_keyword_clause)))
+      (protocol_method_declaration
+        (function_head)
+        name: (function_name
+          (identifier)))
+      (protocol_initializer_declaration
+        keyword: (init))
+      (protocol_initializer_declaration
+        keyword: (init))
+      (protocol_initializer_declaration
+        keyword: (init))
+      (protocol_subscript_declaration
+        (subscript_head
+          parameters: (parameter
+            identifier: (identifier)
+            (type_annotation
+              (tuple_type))))
+        (subscript_result
+          (type_identifier
+            identifier: (identifier)))
+        (getter_setter_keyword_block
+          (getter_keyword_clause))))))
 
 
 ======
@@ -39,16 +66,20 @@ Protocols with a typealias
 ======
 
 protocol Sequence {
-  typealias A
 	typealias B = C
 }
 
 ---
 
 (program
-	(protocol_declaration (identifier)
-    (protocol_typealias_declaration (identifier))
-		(protocol_typealias_declaration (identifier) (type (identifier)))))
+  (protocol_declaration
+    protocol_name: (identifier)
+    body: (protocol_body
+      (typealias_declaration
+        (identifier)
+        (typealias_assignment
+          (type_identifier
+            identifier: (identifier)))))))
 
 
 ======
@@ -63,6 +94,13 @@ protocol Sequence {
 ---
 
 (program
-	(protocol_declaration (identifier)
-    (associatedtype_declaration (identifier))
-    (associatedtype_declaration (identifier) (type (identifier)))))
+  (protocol_declaration
+    protocol_name: (identifier)
+    body: (protocol_body
+      (protocol_associated_type_declaration
+        (identifier))
+      (protocol_associated_type_declaration
+        (identifier)
+        (type_inheritance_clause
+          (type_identifier
+            identifier: (identifier)))))))
