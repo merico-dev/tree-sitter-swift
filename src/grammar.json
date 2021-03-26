@@ -9367,6 +9367,7 @@
       "_assignment_expression"
     ]
   ],
+  "precedences": [],
   "externals": [],
   "inline": [],
   "supertypes": []
