@@ -3723,6 +3723,16 @@
             "named": true
           }
         ]
+      },
+      "identifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -9197,6 +9207,16 @@
             "named": true
           }
         ]
+      },
+      "type_identifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -9209,10 +9229,6 @@
         },
         {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "type_identifier",
           "named": true
         }
       ]
@@ -9701,6 +9717,16 @@
             "named": false
           }
         ]
+      },
+      "var_name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -9713,10 +9739,6 @@
         },
         {
           "type": "getter_setter_keyword_block",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         },
         {
@@ -10296,6 +10318,10 @@
     "named": false
   },
   {
+    "type": "Android",
+    "named": false
+  },
+  {
     "type": "Linux",
     "named": false
   },
@@ -10308,6 +10334,10 @@
     "named": false
   },
   {
+    "type": "Windows",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -10317,6 +10347,10 @@
   },
   {
     "type": "_",
+    "named": false
+  },
+  {
+    "type": "actor",
     "named": false
   },
   {

@@ -292,7 +292,7 @@ module.exports = grammar({
                 seq("targetEnvironment", "(", $._environment, ")")
             ),
 
-        _operating_system: $ => choice("macOS", "iOS", "watchOS", "tvOS", "Linux"),
+        _operating_system: $ => choice("macOS", "iOS", "watchOS", "tvOS", "Linux", "Windows", "Android"),
 
         _architecture: $ => choice("i386", "x86_64", "arm", "arm64"),
 
@@ -583,7 +583,7 @@ module.exports = grammar({
         function_call_argument: $ =>
             choice(
                 field("argument", $.expression),
-                seq($.identifier, ":", field("argument", $.expression),),
+                seq(field("identifier", $.identifier), ":", field("argument", $.expression),),
                 field("argument", $.operator),
                 seq($.identifier, ":", field("argument", $.operator))
             ),
@@ -760,31 +760,31 @@ module.exports = grammar({
                 ),
                 seq(
                     $.variable_declaration_head,
-                    $.identifier,
+                    field("var_name", $.identifier),
                     $.type_annotation,
                     $._code_block
                 ),
                 seq(
                     $.variable_declaration_head,
-                    $.identifier,
+                    field("var_name", $.identifier),
                     $.type_annotation,
                     $.getter_setter_block
                 ),
                 seq(
                     $.variable_declaration_head,
-                    $.identifier,
+                    field("var_name", $.identifier),
                     $.type_annotation,
                     $.getter_setter_keyword_block
                 ),
                 seq(
                     $.variable_declaration_head,
-                    $.identifier,
+                    field("var_name", $.identifier),
                     $.initializer,
                     $.willSet_didSet_block
                 ),
                 seq(
                     $.variable_declaration_head,
-                    $.identifier,
+                    field("var_name", $.identifier),
                     $.type_annotation,
                     optional($.initializer),
                     $.willSet_didSet_block
@@ -1286,6 +1286,7 @@ module.exports = grammar({
 
         _declaration_modifier: $ =>
             choice(
+                "actor",
                 "class",
                 "convenience",
                 "dynamic",
@@ -1428,7 +1429,7 @@ module.exports = grammar({
                     $.identifier,
                     optional($.generic_argument_clause),
                     ".",
-                    $.type_identifier
+                    field("type_identifier", $.type_identifier)
                 )
             ),
 

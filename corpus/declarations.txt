@@ -117,7 +117,7 @@ public static var foo = bar
             postfix_expression: (identifier))))))
   (variable_declaration
     (variable_declaration_head)
-    (identifier)
+    var_name: (identifier)
     (type_annotation
       (type_identifier
         identifier: (identifier)))
@@ -125,7 +125,7 @@ public static var foo = bar
       (getter_keyword_clause)))
   (variable_declaration
     (variable_declaration_head)
-    (identifier)
+    var_name: (identifier)
     (type_annotation
       (type_identifier
         identifier: (identifier)))
@@ -134,7 +134,7 @@ public static var foo = bar
       (setter_keyword_clause)))
   (variable_declaration
     (variable_declaration_head)
-    (identifier)
+    var_name: (identifier)
     (type_annotation
       (type_identifier
         identifier: (identifier)))
@@ -495,7 +495,7 @@ struct S {
 
 (program
   (struct_declaration
-    struct_name: (identifier)
+    struct_name: (type_identifier identifier: (identifier))
     body: (struct_body
       (initializer_declaration
         keyword: (init)))))
@@ -532,7 +532,7 @@ struct A {
 
 (program
   (struct_declaration
-    struct_name: (identifier)
+    struct_name: (type_identifier identifier: (identifier))
     body: (struct_body
       (subscript_declaration
         (subscript_head
