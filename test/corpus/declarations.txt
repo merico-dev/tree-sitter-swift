@@ -495,7 +495,7 @@ struct S {
 
 (program
   (struct_declaration
-    struct_name: (type_identifier identifier: (identifier))
+    struct_name: (identifier)
     body: (struct_body
       (initializer_declaration
         keyword: (init)))))
@@ -532,7 +532,7 @@ struct A {
 
 (program
   (struct_declaration
-    struct_name: (type_identifier identifier: (identifier))
+    struct_name: (identifier)
     body: (struct_body
       (subscript_declaration
         (subscript_head

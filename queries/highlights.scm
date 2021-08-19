@@ -153,7 +153,8 @@
 (external_parameter_name) @identifier
 (function_call_argument identifier: (identifier) @property)
 (function_call_expression name: (identifier) @function)
-(function_call_expression name: (explicit_member_expression subject: (identifier) @function) @function)
+(function_call_expression name: (explicit_member_expression member: (identifier) @function))
+(function_call_expression name: (implicit_member_expression (identifier) @function))
 
 (binary_expression left: (expression postfix_expression: (identifier) @identifier))
 (expression postfix_expression: (identifier) @identifier)
@@ -184,12 +185,11 @@
 ; Structs and Classes
 (struct_declaration struct_name: (identifier) @type)
 (class_declaration class_name: (identifier) @type)
+(deinit) @keyword
 
 ; Protocols
 (protocol_declaration protocol_name: (identifier) @type)
 (protocol_associated_type_declaration (identifier) @type)
-
-(deinit) @keyword
 
 ; Generics
 (generic_parameter (identifier) @type)
@@ -205,11 +205,9 @@
 (optional_chaining_expression expression: (identifier) @identifier)
 
 ; Self Expression
-
 (postfix_self_expression (identifier) @identifier)
 
 ; Wildcard Expression
-
 (wildcard_expression) @keyword
 
 ; Super Class Expression
@@ -224,4 +222,4 @@
 (fallthrough_statement) @keyword
 
 ; Compilation Condition
-(compilation_condition) @function
+(compilation_condition) @identifier
