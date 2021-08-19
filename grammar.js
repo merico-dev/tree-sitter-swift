@@ -1332,7 +1332,7 @@ module.exports = grammar({
         boolean_literal: $ => choice("true", "false"),
 
         string_literal: $ => {
-            const double_quote_string = seq('"', double_quote_chars(), '"')
+            const double_quote_string = choice(seq('"', double_quote_chars(), '"'), seq('"""\n', double_quote_chars(), '"""'))
             return token(double_quote_string)
         },
 

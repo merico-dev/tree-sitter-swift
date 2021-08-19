@@ -172,8 +172,8 @@
 
 ; Tuples
 (tuple_element (identifier) @identifier)
-(tuple_pattern_element (identifier) @identifier)
-(tuple_type_element (identifier) @identifier)
+(tuple_pattern_element (identifier) @property)
+(tuple_type_element (identifier) @type)
 
 ; Enums
 (enum_case_name) @property
