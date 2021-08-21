@@ -1460,7 +1460,15 @@
         },
         {
           "type": "STRING",
+          "value": "FreeBSD"
+        },
+        {
+          "type": "STRING",
           "value": "Windows"
+        },
+        {
+          "type": "STRING",
+          "value": "Cygwin"
         },
         {
           "type": "STRING",
@@ -1486,6 +1494,22 @@
         {
           "type": "STRING",
           "value": "arm64"
+        },
+        {
+          "type": "STRING",
+          "value": "wasm32"
+        },
+        {
+          "type": "STRING",
+          "value": "s390x"
+        },
+        {
+          "type": "STRING",
+          "value": "powerpc64"
+        },
+        {
+          "type": "STRING",
+          "value": "powerpc64le"
         }
       ]
     },
@@ -1814,6 +1838,18 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "STRING",
+              "value": "await"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SEQ",
               "members": [
                 {
@@ -1967,6 +2003,18 @@
             ]
           },
           {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "await"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
             "type": "FIELD",
             "name": "right",
             "content": {
@@ -2043,6 +2091,18 @@
               {
                 "type": "SYMBOL",
                 "name": "_try_operator"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "await"
               },
               {
                 "type": "BLANK"
@@ -2690,6 +2750,18 @@
             {
               "type": "SYMBOL",
               "name": "closure_parameter_clause"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "async"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
               "type": "CHOICE",
@@ -5098,6 +5170,18 @@
               "members": [
                 {
                   "type": "STRING",
+                  "value": "async"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
                   "value": "throws"
                 },
                 {
@@ -5905,8 +5989,17 @@
               ]
             },
             {
-              "type": "STRING",
-              "value": "class"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "class"
+                },
+                {
+                  "type": "STRING",
+                  "value": "actor"
+                }
+              ]
             },
             {
               "type": "FIELD",
@@ -5993,8 +6086,17 @@
               ]
             },
             {
-              "type": "STRING",
-              "value": "class"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "class"
+                },
+                {
+                  "type": "STRING",
+                  "value": "actor"
+                }
+              ]
             },
             {
               "type": "FIELD",
@@ -6324,6 +6426,18 @@
               "members": [
                 {
                   "type": "STRING",
+                  "value": "async"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
                   "value": "throws"
                 },
                 {
@@ -6510,6 +6624,18 @@
             {
               "type": "SYMBOL",
               "name": "_parameter_clause"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "async"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
               "type": "CHOICE",
@@ -8557,6 +8683,18 @@
         {
           "type": "SYMBOL",
           "name": "function_type_argument_clause"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "async"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "CHOICE",

@@ -1,6 +1,9 @@
 ; Keywords
 [
 	"associatedtype"
+	"actor"
+	"await"
+	"async"
 	"class"
 ;	"deinit"
 	"enum"
@@ -178,6 +181,8 @@
 
 (explicit_member_expression subject: (identifier) @identifier member: (identifier) @identifier)
 (explicit_member_expression subject: (explicit_member_expression) member: (identifier) @identifier)
+(explicit_member_expression subject: (function_call_expression) member: (identifier) @identifier)
+(explicit_member_expression subject: (forced_value_expression) member: (identifier) @identifier)
 (explicit_member_expression subject: (implicit_member_expression) member: (identifier) @identifier)
 (explicit_member_expression subject: (optional_chaining_expression) member: (identifier) @identifier)
 (explicit_member_expression subject: (self_method_expression) member: (identifier) @identifier)
@@ -239,5 +244,3 @@
 
 ; Compilation Condition
 (compilation_condition) @identifier
-
-

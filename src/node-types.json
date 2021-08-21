@@ -10322,6 +10322,14 @@
     "named": false
   },
   {
+    "type": "Cygwin",
+    "named": false
+  },
+  {
+    "type": "FreeBSD",
+    "named": false
+  },
+  {
     "type": "Linux",
     "named": false
   },
@@ -10386,8 +10394,16 @@
     "named": false
   },
   {
+    "type": "async",
+    "named": false
+  },
+  {
     "type": "attribute_name",
     "named": true
+  },
+  {
+    "type": "await",
+    "named": false
   },
   {
     "type": "binary_operator",
@@ -10670,6 +10686,14 @@
     "named": true
   },
   {
+    "type": "powerpc64",
+    "named": false
+  },
+  {
+    "type": "powerpc64le",
+    "named": false
+  },
+  {
     "type": "precedence_group_name",
     "named": true
   },
@@ -10715,6 +10739,10 @@
   },
   {
     "type": "right",
+    "named": false
+  },
+  {
+    "type": "s390x",
     "named": false
   },
   {
@@ -10819,6 +10847,10 @@
   },
   {
     "type": "var",
+    "named": false
+  },
+  {
+    "type": "wasm32",
     "named": false
   },
   {

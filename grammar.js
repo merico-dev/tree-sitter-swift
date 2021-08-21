@@ -292,9 +292,9 @@ module.exports = grammar({
                 seq("targetEnvironment", "(", $._environment, ")")
             ),
 
-        _operating_system: $ => choice("macOS", "iOS", "watchOS", "tvOS", "Linux", "Windows", "Android"),
+        _operating_system: $ => choice("macOS", "iOS", "watchOS", "tvOS", "Linux", "FreeBSD", "Windows", "Cygwin", "Android"),
 
-        _architecture: $ => choice("i386", "x86_64", "arm", "arm64"),
+        _architecture: $ => choice("i386", "x86_64", "arm", "arm64", "wasm32", "s390x", "powerpc64", "powerpc64le"),
 
         _swift_version: $ =>
             seq($.number, optional($._swift_version_continuation)),
@@ -351,6 +351,7 @@ module.exports = grammar({
         expression: $ =>
             seq(
                 optional($._try_operator),
+                optional("await"),
                 choice(
                     seq(
                         optional(alias($.operator, $.prefix_operator)),
@@ -378,6 +379,7 @@ module.exports = grammar({
                 field("left", $.expression),
                 "=",
                 optional($._try_operator),
+                optional("await"),
                 field("right", $.expression)
             )),
 
@@ -395,6 +397,7 @@ module.exports = grammar({
                 $.expression,
                 ":",
                 optional($._try_operator),
+                optional("await"),
                 $.expression
             )),
 
@@ -495,6 +498,7 @@ module.exports = grammar({
                 seq(
                     optional($.capture_list),
                     $.closure_parameter_clause,
+                    optional("async"),
                     optional("throws"),
                     optional($.function_result),
                     "in"
@@ -900,6 +904,7 @@ module.exports = grammar({
             choice(
                 seq(
                     $._parameter_clause,
+                    optional("async"),
                     optional("throws"),
                     optional($.function_result)
                 ),
@@ -1036,7 +1041,7 @@ module.exports = grammar({
                     repeat($.attribute),
                     optional($._access_level_modifier),
                     optional("final"),
-                    "class",
+                    choice("class", "actor"),
                     field("class_name", $.identifier),
                     optional($.generic_parameter_clause),
                     field("type_inheritance_clause", optional($.type_inheritance_clause)),
@@ -1047,7 +1052,7 @@ module.exports = grammar({
                     repeat($.attribute),
                     "final",
                     optional($._access_level_modifier),
-                    "class",
+                    choice("class", "actor"),
                     field("class_name", $.identifier),
                     optional($.generic_parameter_clause),
                     field("type_inheritance_clause", optional($.type_inheritance_clause)),
@@ -1110,6 +1115,7 @@ module.exports = grammar({
                     $._initializer_head,
                     optional($.generic_parameter_clause),
                     $._parameter_clause,
+                    optional("async"),
                     optional("throws"),
                     optional($.generic_where_clause)
                 ),
@@ -1147,6 +1153,7 @@ module.exports = grammar({
                     $._initializer_head,
                     optional($.generic_parameter_clause),
                     $._parameter_clause,
+                    optional("async"),
                     optional("throws"),
                     optional($.generic_where_clause),
                     $._initializer_body
@@ -1447,6 +1454,7 @@ module.exports = grammar({
             seq(
                 repeat($.attribute),
                 $.function_type_argument_clause,
+                optional("async"),
                 optional("throws"),
                 "->",
                 $._type
