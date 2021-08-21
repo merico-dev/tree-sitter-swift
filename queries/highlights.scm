@@ -6,7 +6,7 @@
 	"enum"
 	"extension"
 	"fileprivate"
-	"func"
+	;"func"
 	"import"
 	"inout"
 	"internal"
@@ -127,6 +127,20 @@
   "||"
 ] @operator
 
+; Punctuation and Delimiters
+[
+	"{"
+	"}"
+	"("
+	")"
+] @punctuation.bracket
+
+[
+	","
+	";"
+	":"
+] @punctuation.delimiter
+
 (comment) @comment
 
 ; Types and Literals
@@ -149,6 +163,8 @@
 (identifier_pattern) @identifier
 
 ; Functions
+
+(function_head) @keyword.function
 (function_name (identifier) @function)
 (external_parameter_name) @identifier
 (function_call_argument identifier: (identifier) @property)
@@ -223,3 +239,5 @@
 
 ; Compilation Condition
 (compilation_condition) @identifier
+
+
