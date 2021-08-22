@@ -1,7 +1,5 @@
 import Foundation
-//     ^ type
 
-// <- keyword
 
 struct ABC: Codable {
     let a: [String] = ["Hello", "World!"]
