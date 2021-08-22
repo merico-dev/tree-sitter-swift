@@ -192,7 +192,7 @@
 (self_method_expression subject: (self) @variable member: (identifier) @identifier)
 
 ; Tuples
-(tuple_element (identifier) @identifier)
+(tuple_element (identifier) @property)
 (tuple_pattern_element (identifier) @property)
 (tuple_type_element (identifier) @type)
 
