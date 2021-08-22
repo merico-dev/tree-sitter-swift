@@ -163,7 +163,7 @@
 ; Variables
 (variable_declaration var_name: (identifier) @variable)
 (parameter identifier: (identifier) @property)
-(identifier_pattern) @identifier
+(identifier_pattern) @property
 
 ; Functions
 
