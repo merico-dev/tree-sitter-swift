@@ -8,16 +8,28 @@ struct ABC: Codable {
 
     let a: [String] = ["Hello", "World!"]
     // <- keyword
-    //  ^ property
+    //  ^ variable
     //   ^ punctuation.delimiter
     //       ^ type
     //                  ^ string
 
     let b: Dictionary<String, Int> = ["One": 1, "Two": 2]
-    var c: Bool = true
+    // <- keyword
+    //  ^ variable
+
+    var c = true
+    // <- keyword
+    //  ^ variable
+    //      ^ constant.builtin
+
     var d: (String, Int) = ("", 0x123)
+    // <- keyword
+    //  ^ variable
+    //      ^ type
+    //              ^ type
+    //                      ^ string
+    //                          ^ number
 }
-// -> punctuation.bracket
 
 enum A: UInt32 {
 // <- keyword
@@ -47,4 +59,33 @@ func abc(def ghi: String, otherParameter: Bool) -> ABC {
     //                                      ^ property
     //                                                                  ^ property
     //                                                                      ^ identifier
+}
+
+for i in [0, 1, 2, 3] {
+// <- keyword
+//  ^ variable
+//    ^ keyword
+//        ^ number
+//                    ^ punctuation.bracket
+    print(i)
+    // ^ function
+    //    ^ identifier
+}
+
+if "Hello" == "World" {
+// <- keyword
+//  ^ string
+//         ^ operator
+//             ^ string
+//                    ^ punctuation.bracket
+    exit(0)
+    // <- function
+    //   ^ number
+} else {
+// <- punctuation.bracket
+// ^ keyword
+//     ^ punctuation.bracket
+    exit(1)
+    // ^ function
+    //   ^ number
 }

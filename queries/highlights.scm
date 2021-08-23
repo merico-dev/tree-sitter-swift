@@ -97,38 +97,6 @@
 	(nil_literal)
 ] @constant.builtin
 
-[
-;  "-"
-;  "-="
-  "!"
-;  "!="
-  "..."
-  "*"
-;  "*="
-;  "/"
-;  "/="
-  "&"
-  "&&"
-;  "&="
-;  "%"
-;  "%="
-;  "^"
-;  "^="
-;  "+"
-;  "++"
-;  "+="
-;  "<"
-;  "<<"
-;  "<="
-  "="
-  "=="
-;  ">"
-  ">="
-;  ">>"
-;  "|"
-;  "|="
-  "||"
-] @operator
 
 ; Punctuation and Delimiters
 [
@@ -145,6 +113,8 @@
 ] @punctuation.delimiter
 
 (comment) @comment
+(operator) @operator
+(binary_operator) @operator
 
 ; Types and Literals
 (type_identifier identifier: (identifier) @type type_identifier: (type_identifier)?)
@@ -163,10 +133,14 @@
 ; Variables
 (variable_declaration var_name: (identifier) @variable)
 (parameter identifier: (identifier) @property)
-(identifier_pattern) @property
+
+; Overrides following highlights
+;(identifier_pattern (identifier) @identifier)
+
+(pattern_initializer (identifier_pattern) @variable)
+(pattern_initializer (expression (binary_expression left: (expression (identifier) @variable))))
 
 ; Functions
-
 (function_head) @keyword.function
 (function_name (identifier) @function)
 (external_parameter_name) @identifier
@@ -241,6 +215,9 @@
 (break_statement (identifier)? @identifier)
 (continue_statement (identifier)? @identifier)
 (fallthrough_statement) @keyword
+
+; For Loops
+(for_in_statement variable: (identifier_pattern) @variable)
 
 ; Compilation Condition
 (compilation_condition) @identifier
