@@ -19,10 +19,12 @@ func abc(def ghi: String, otherParameter: Bool) -> ABC {
 
 for i in [0, 1, 2, 3] {
     print(i)
+
+    if i == 2 { break }
 }
 
 if "Hello" == "World" {
     exit(0)
-} else {
+} else if a == b {
     exit(1)
 }

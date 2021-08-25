@@ -70,9 +70,16 @@ for i in [0, 1, 2, 3] {
     print(i)
     // ^ function
     //    ^ identifier
+
+    if i == 2 { break }
+    // <-keyword
+    // ^ identifier
+    //   ^ operator
+    //      ^ number
+    //          ^ keyword
 }
 
-if "Hello" == "World" {
+if "Hello" != "World" {
 // <- keyword
 //  ^ string
 //         ^ operator
@@ -81,10 +88,13 @@ if "Hello" == "World" {
     exit(0)
     // <- function
     //   ^ number
-} else {
-// <- punctuation.bracket
+} else if a == b {
 // ^ keyword
-//     ^ punctuation.bracket
+//     ^ keyword
+//        ^ identifier
+//          ^ operator
+//             ^ identifier
+//               ^ punctuation.bracket
     exit(1)
     // ^ function
     //   ^ number

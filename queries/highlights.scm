@@ -135,7 +135,7 @@
 (parameter identifier: (identifier) @property)
 
 ; Overrides following highlights
-;(identifier_pattern (identifier) @identifier)
+(identifier_pattern (identifier) @variable)
 
 (pattern_initializer (identifier_pattern) @variable)
 (pattern_initializer (expression (binary_expression left: (expression (identifier) @variable))))
@@ -153,15 +153,20 @@
 (expression postfix_expression: (identifier) @identifier)
 (implicit_member_expression (identifier) @identifier)
 
-(explicit_member_expression subject: (identifier) @identifier member: (identifier) @identifier)
-(explicit_member_expression subject: (explicit_member_expression) member: (identifier) @identifier)
-(explicit_member_expression subject: (function_call_expression) member: (identifier) @identifier)
-(explicit_member_expression subject: (forced_value_expression) member: (identifier) @identifier)
-(explicit_member_expression subject: (implicit_member_expression) member: (identifier) @identifier)
-(explicit_member_expression subject: (optional_chaining_expression) member: (identifier) @identifier)
-(explicit_member_expression subject: (self_method_expression) member: (identifier) @identifier)
-(explicit_member_expression subject: (self) member: (identifier) @identifier)
-(explicit_member_expression subject: (subscript_expression) member: (identifier) @identifier)
+(
+	explicit_member_expression subject: [
+		(identifier) @identifier
+		(explicit_member_expression)
+		(function_call_expression)
+		(forced_value_expression)
+		(implicit_member_expression)
+		(optional_chaining_expression)
+		(self_method_expression)
+		(self)
+		(subscript_expression)
+	]
+	member: (identifier) @property
+)
 
 (self_method_expression subject: (self) @variable member: (identifier) @identifier)
 
@@ -178,7 +183,7 @@
 (subscript_expression subject: (identifier) @identifier)
 
 ; Structs and Classes
-(struct_declaration struct_name: (identifier) @type)
+(struct_declaration struct_name: (identifier) @type @struct)
 (class_declaration class_name: (identifier) @type)
 (deinit) @keyword
 
