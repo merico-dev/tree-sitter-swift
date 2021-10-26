@@ -933,7 +933,7 @@ module.exports = grammar({
                 )
             ),
 
-        _default_argument_clause: $ => seq("=", $.expression),
+        _default_argument_clause: $ => seq("=", field("default_value", $.expression)),
 
         enum_declaration: $ =>
             choice(
