@@ -1,4 +1,5 @@
 import Foundation
+// <- keyword
 
 struct ABC: Codable {
 // <- keyword
@@ -42,6 +43,7 @@ enum A: UInt32 {
     //   ^ property
 }
 
+
 func abc(def ghi: String, otherParameter: Bool) -> ABC {
 // <- keyword.function
 //   ^ function
@@ -51,6 +53,7 @@ func abc(def ghi: String, otherParameter: Bool) -> ABC {
 //                        ^ property
 //                                        ^ type
 //                                                 ^ type
+
     return ABC(a: ["String 1", "String 2"], b: ["Three": 3, "Four": 4], c: otherParameter)
     // <- keyword
     //     ^ function
@@ -72,7 +75,7 @@ for i in [0, 1, 2, 3] {
     //    ^ identifier
 
     if i == 2 { break }
-    // <-keyword
+    // <- keyword
     // ^ identifier
     //   ^ operator
     //      ^ number
@@ -99,3 +102,5 @@ if "Hello" != "World" {
     // ^ function
     //   ^ number
 }
+
+

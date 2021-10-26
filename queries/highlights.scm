@@ -104,10 +104,13 @@
 	"}"
 	"("
 	")"
+	"["
+	"]"
 ] @punctuation.bracket
 
 [
 	","
+	"."
 	";"
 	":"
 ] @punctuation.delimiter
@@ -122,6 +125,7 @@
 (string_literal) @string
 (operator) @operator
 (any_type) @type
+(self_type) @type
 
 ; Attributes
 (attribute_name) @type
@@ -144,7 +148,7 @@
 (function_head) @keyword.function
 (function_name (identifier) @function)
 (external_parameter_name) @identifier
-(function_call_argument identifier: (identifier) @property)
+(function_call_argument identifier: (identifier) @property @parameter)
 (function_call_expression name: (identifier) @function)
 (function_call_expression name: (explicit_member_expression member: (identifier) @function))
 (function_call_expression name: (implicit_member_expression (identifier) @function))
@@ -173,7 +177,7 @@
 ; Tuples
 (tuple_element (identifier) @property)
 (tuple_pattern_element (identifier) @property)
-(tuple_type_element (identifier) @type)
+(tuple_type_element (identifier) @property)
 
 ; Enums
 (enum_case_name) @property
