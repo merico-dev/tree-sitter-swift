@@ -6357,6 +6357,16 @@
     "type": "parameter",
     "named": true,
     "fields": {
+      "default_value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
       "identifier": {
         "multiple": false,
         "required": true,
@@ -6372,10 +6382,6 @@
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
         {
           "type": "external_parameter_name",
           "named": true
