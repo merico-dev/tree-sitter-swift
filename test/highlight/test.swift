@@ -1,5 +1,4 @@
 import Foundation
-// <- keyword
 
 struct ABC: Codable {
 // <- keyword
