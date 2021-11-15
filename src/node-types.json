@@ -3920,6 +3920,10 @@
           {
             "type": "parameter",
             "named": true
+          },
+          {
+            "type": "variadic_parameter",
+            "named": true
           }
         ]
       },
@@ -5500,6 +5504,10 @@
           {
             "type": "parameter",
             "named": true
+          },
+          {
+            "type": "variadic_parameter",
+            "named": true
           }
         ]
       },
@@ -7065,6 +7073,10 @@
           {
             "type": "parameter",
             "named": true
+          },
+          {
+            "type": "variadic_parameter",
+            "named": true
           }
         ]
       }
@@ -7108,6 +7120,10 @@
         "types": [
           {
             "type": "parameter",
+            "named": true
+          },
+          {
+            "type": "variadic_parameter",
             "named": true
           }
         ]
@@ -8423,6 +8439,10 @@
         "types": [
           {
             "type": "parameter",
+            "named": true
+          },
+          {
+            "type": "variadic_parameter",
             "named": true
           }
         ]
@@ -9754,6 +9774,36 @@
     }
   },
   {
+    "type": "variadic_parameter",
+    "named": true,
+    "fields": {
+      "identifier": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "external_parameter_name",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "where_clause",
     "named": true,
     "fields": {},
@@ -10609,11 +10659,11 @@
   },
   {
     "type": "operator",
-    "named": true
+    "named": false
   },
   {
     "type": "operator",
-    "named": false
+    "named": true
   },
   {
     "type": "optional",
