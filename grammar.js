@@ -909,7 +909,7 @@ module.exports = grammar({
         _parameter_clause: $ =>
             choice(
                 seq("(", ")"),
-                seq("(", commaSep1(field("parameters", $.parameter)), ")")
+                seq("(", commaSep1(field("parameters", choice($.parameter, $.variadic_parameter))), ")")
             ),
 
         parameter: $ =>
@@ -924,14 +924,15 @@ module.exports = grammar({
                     optional(alias($.identifier, $.external_parameter_name)),
                     field("identifier", $.identifier),
                     $.type_annotation
-                ),
-                seq(
-                    optional(alias($.identifier, $.external_parameter_name)),
-                    field("identifier", $.identifier),
-                    $.type_annotation,
-                    "..."
                 )
             ),
+
+        variadic_parameter: $ => seq(
+            optional(alias($.identifier, $.external_parameter_name)),
+            field("identifier", $.identifier),
+            $.type_annotation,
+            "..."
+        ),
 
         _default_argument_clause: $ => seq("=", field("default_value", $.expression)),
 

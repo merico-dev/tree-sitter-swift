@@ -5144,8 +5144,17 @@
                   "type": "FIELD",
                   "name": "parameters",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "parameter"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "parameter"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "variadic_parameter"
+                      }
+                    ]
                   }
                 },
                 {
@@ -5161,8 +5170,17 @@
                         "type": "FIELD",
                         "name": "parameters",
                         "content": {
-                          "type": "SYMBOL",
-                          "name": "parameter"
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "parameter"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "variadic_parameter"
+                            }
+                          ]
                         }
                       }
                     ]
@@ -5260,44 +5278,44 @@
               "name": "type_annotation"
             }
           ]
-        },
+        }
+      ]
+    },
+    "variadic_parameter": {
+      "type": "SEQ",
+      "members": [
         {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  "named": true,
-                  "value": "external_parameter_name"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
-              "type": "FIELD",
-              "name": "identifier",
+              "type": "ALIAS",
               "content": {
                 "type": "SYMBOL",
                 "name": "identifier"
-              }
+              },
+              "named": true,
+              "value": "external_parameter_name"
             },
             {
-              "type": "SYMBOL",
-              "name": "type_annotation"
-            },
-            {
-              "type": "STRING",
-              "value": "..."
+              "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "FIELD",
+          "name": "identifier",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_annotation"
+        },
+        {
+          "type": "STRING",
+          "value": "..."
         }
       ]
     },
