@@ -1,4 +1,5 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "swift",
   "word": "identifier",
   "rules": {
@@ -258,15 +259,32 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "SEQ",
+              "type": "CHOICE",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "_pattern"
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_pattern"
+                    },
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "initializer"
+                        },
+                        {
+                          "type": "BLANK"
+                        }
+                      ]
+                    }
+                  ]
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "initializer"
+                  "name": "implicit_self_binding"
                 }
               ]
             },
@@ -280,15 +298,32 @@
                     "value": ","
                   },
                   {
-                    "type": "SEQ",
+                    "type": "CHOICE",
                     "members": [
                       {
-                        "type": "SYMBOL",
-                        "name": "_pattern"
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "_pattern"
+                          },
+                          {
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "SYMBOL",
+                                "name": "initializer"
+                              },
+                              {
+                                "type": "BLANK"
+                              }
+                            ]
+                          }
+                        ]
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "initializer"
+                        "name": "implicit_self_binding"
                       }
                     ]
                   }
@@ -298,6 +333,18 @@
           ]
         }
       ]
+    },
+    "implicit_self_binding": {
+      "type": "STRING",
+      "value": "self"
+    },
+    "self_expression": {
+      "type": "PREC_RIGHT",
+      "value": 1,
+      "content": {
+        "type": "STRING",
+        "value": "self"
+      }
     },
     "repeat_while_statement": {
       "type": "SEQ",
@@ -3783,6 +3830,10 @@
         {
           "type": "SYMBOL",
           "name": "expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "self_expression"
         }
       ]
     },
@@ -9387,11 +9438,25 @@
     [
       "_pattern",
       "_assignment_expression"
+    ],
+    [
+      "optional_binding_condition",
+      "self_expression"
     ]
   ],
-  "precedences": [],
+  "precedences": [
+    [
+      {
+        "type": "STRING",
+        "value": "self_expression"
+      },
+      {
+        "type": "STRING",
+        "value": "implicit_self_binding"
+      }
+    ]
+  ],
   "externals": [],
   "inline": [],
   "supertypes": []
 }
-

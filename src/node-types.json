@@ -154,6 +154,10 @@
           "named": true
         },
         {
+          "type": "self_expression",
+          "named": true
+        },
+        {
           "type": "self_type",
           "named": true
         },
@@ -362,6 +366,10 @@
           "named": true
         },
         {
+          "type": "self_expression",
+          "named": true
+        },
+        {
           "type": "tuple_pattern",
           "named": true
         },
@@ -406,6 +414,10 @@
         },
         {
           "type": "optional_pattern",
+          "named": true
+        },
+        {
+          "type": "self_expression",
           "named": true
         },
         {
@@ -657,6 +669,10 @@
         },
         {
           "type": "optional_pattern",
+          "named": true
+        },
+        {
+          "type": "self_expression",
           "named": true
         },
         {
@@ -3545,6 +3561,10 @@
             "named": true
           },
           {
+            "type": "self_expression",
+            "named": true
+          },
+          {
             "type": "tuple_pattern",
             "named": true
           },
@@ -5325,6 +5345,11 @@
     }
   },
   {
+    "type": "implicit_self_binding",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "implicitly_unwrapped_optional_type",
     "named": true,
     "fields": {},
@@ -6129,11 +6154,19 @@
           "named": true
         },
         {
+          "type": "implicit_self_binding",
+          "named": true
+        },
+        {
           "type": "initializer",
           "named": true
         },
         {
           "type": "optional_pattern",
+          "named": true
+        },
+        {
+          "type": "self_expression",
           "named": true
         },
         {
@@ -6452,6 +6485,10 @@
           "named": true
         },
         {
+          "type": "self_expression",
+          "named": true
+        },
+        {
           "type": "tuple_pattern",
           "named": true
         },
@@ -6738,6 +6775,7 @@
   {
     "type": "program",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -7669,6 +7707,11 @@
   },
   {
     "type": "self",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "self_expression",
     "named": true,
     "fields": {}
   },
@@ -8959,6 +9002,10 @@
           "named": true
         },
         {
+          "type": "self_expression",
+          "named": true
+        },
+        {
           "type": "tuple_pattern",
           "named": true
         },
@@ -9525,6 +9572,10 @@
         },
         {
           "type": "optional_pattern",
+          "named": true
+        },
+        {
+          "type": "self_expression",
           "named": true
         },
         {
