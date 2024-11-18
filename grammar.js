@@ -16,6 +16,13 @@ const PREC = {
 module.exports = grammar({
     name: "swift",
 
+    precedences: $ => [
+        [
+          'self_expression',
+          'implicit_self_binding',
+        ]
+    ],
+
     conflicts: $ => [
         [$.switch_case],
         [$.tuple_expression, $.tuple_type],
@@ -61,6 +68,7 @@ module.exports = grammar({
         [$.optional_binding_condition],
         [$._type_casting_expression, $._pattern],
         [$._pattern, $._assignment_expression],
+        [$.optional_binding_condition, $.self_expression],
     ],
 
     word: $ => $.identifier,
@@ -126,8 +134,13 @@ module.exports = grammar({
         optional_binding_condition: $ =>
             seq(
                 choice("let", "var"),
-                commaSep1(seq($._pattern, $.initializer))
+                commaSep1(choice(
+                    seq($._pattern, optional($.initializer)),
+                    $.implicit_self_binding
+                ))
             ),
+        implicit_self_binding: $ => 'self',
+        self_expression: $ => prec.right(1, 'self'),
 
         repeat_while_statement: $ =>
             seq("repeat", $._code_block, "while", field("expression_condition", $.expression)),
@@ -658,7 +671,8 @@ module.exports = grammar({
                 $.enum_case_pattern,
                 $.optional_pattern,
                 $.type_casting_pattern,
-                $.expression
+                $.expression,
+                $.self_expression
             ),
 
         wildcard_pattern: $ => "_",
