@@ -361,9 +361,10 @@ module.exports = grammar({
         //
         // Expression
         //
-        expression: $ =>
+        expression: $ => 
             seq(
                 optional($._try_operator),
+                optional('await'),
                 choice(
                     seq(
                         optional(alias($.operator, $.prefix_operator)),
@@ -1301,6 +1302,7 @@ module.exports = grammar({
 
         _declaration_modifier: $ =>
             choice(
+                "async",
                 "class",
                 "convenience",
                 "dynamic",
