@@ -1,5 +1,4 @@
 {
-  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "swift",
   "word": "identifier",
   "rules": {
@@ -1843,6 +1842,18 @@
             {
               "type": "SYMBOL",
               "name": "_try_operator"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "await"
             },
             {
               "type": "BLANK"
@@ -7294,6 +7305,10 @@
       "members": [
         {
           "type": "STRING",
+          "value": "async"
+        },
+        {
+          "type": "STRING",
           "value": "class"
         },
         {
@@ -9460,3 +9475,4 @@
   "inline": [],
   "supertypes": []
 }
+
